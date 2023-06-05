@@ -1,54 +1,91 @@
-function createPost(post) {
+console.log(`person1: shows ticket`)
+console.log(`person2: shows ticket`)
+
+// const premovie = async () => {
+//   const promiseWifeBringingTickets = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve("ticket")
+//     }, 3000)
+//   })
+
+//   const getPopcorn = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve(`popcorn`)
+//     }, 0)
+//   })
+
+//   const getButter  = new Promise((resolve,reject)=>{
+//     setTimeout(() => {
+//       resolve(`Butter`)
+//     }, 0);
+//   })
+
+//   const getColdDrink = new Promise((resolve,reject)=>{
+//     setTimeout(() => {
+//       resolve(`cold drink`)
+//     }, 0);
+//   })
+
+//   let ticket = await promiseWifeBringingTickets
+//   console.log(`wife: i have the ${ticket}`)
+//   console.log("husband: we should go in")
+//   console.log("wife: no i am hungry")
+
+//   let popcorn = await getPopcorn
+
+//   console.log(`husband: i got some ${popcorn}`)
+//   console.log("husband: we should go in")
+//   console.log("wife: no i need butter on my popcorn")
+
+//   let butter = await getButter
+//   console.log(`husband: i got ${butter}`)
+//   console.log(`husband: anything else darling?`)
+//   // console.log(`wife: no we are getting late`)
+//   // console.log(`husband: thanks for reminding me ....grins`)
+//   console.log(`wife: who will bring the cold drink?!!!`)
+  
+//   let colddrink = await getColdDrink 
+//   console.log(`here is your ${colddrink} mam`)
+//   console.log(`husband: anything else darling?`)
+//   console.log(`wife: no we are getting late`)
+//   console.log(`husband: thanks for reminding me ....grins`)
+
+//   return ticket
+// }
+
+// premovie().then((m) => console.log(`person3: shows ${m}`))
+
+const promiseWifeBringingTickets = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("ticket")
+  }, 3000)
+})
+
+const getPopcorn = promiseWifeBringingTickets.then((t) => {
+  console.log("wife: i have the tickets")
+  console.log("husband: we should go in")
+  console.log("wife: no i am hungry")
+  return new Promise((resolve, reject) => resolve(`${t}  popcorn`))
+})
+
+const getButter = getPopcorn.then((t) => {
+  console.log(`husband: i got some popcorn`)
+  console.log("husband: we should go in")
+  console.log("wife: no i need butter on my popcorn")
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve()
-    }, 1000)
+    resolve(`${t}  butter`)
   })
-}
+})
 
-function updateLastUserActivityTime() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve()
-    }, 1000)
-  })
-}
+const getColdDrink = getButter.then((t)=>{
+  console.log(`husband: i got the cold drink`)
+  return new Promise((resolve,reject)=> resolve(`${t} cold drink`))
+})
 
-function deletePost(post) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("Post deleted")
-    }, 1000)
-  })
-}
 
-function getAllPosts() {
-  // Simulating fetching all posts from a database
-  return ["Post 1", "Post 2", "Post 3", "Post 4", "Post 5"]
-}
+getColdDrink.then((t) => {
+  console.log(`${t} `)
+})
 
-const posts = getAllPosts()
-
-const createPostPromises = posts.map((post) => createPost(post))
-
-Promise.all(createPostPromises)
-  .then((createdPosts) => {
-    console.log("Posts created:", createdPosts)
-
-    return updateLastUserActivityTime()
-  })
-  .then((activityTime) => {
-    console.log("Last user activity time:", activityTime)
-
-    const lastPost = posts[posts.length - 1]
-    return deletePost(lastPost)
-  })
-  .then((deleteResult) => {
-    console.log("Post deletion result:", deleteResult)
-
-    const updatedPosts = getAllPosts()
-    console.log("Updated posts:", updatedPosts)
-  })
-  .catch((error) => {
-    console.error("Error:", error)
-  })
+console.log(`person4: shows ticket`)
+console.log(`person5: shows ticket`)
